@@ -15,7 +15,9 @@ std::vector<unsigned long long> list_neyronov ;//(210);
 //list_neyronov.reserve(202);
 long long Peremennaya_Oshibka ;
 int var ;
-int index_neyrona, index_sinapsa; 
+int index_neyrona, index_sinapsa;
+  // Переменная "счётчик индекса синапсов"
+int peremennaya_schiotchik_indeksa_sinapsov=0;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -141,7 +143,7 @@ Dialog::Dialog(QWidget *parent)
 //    }
 ///////////////////////////////// Второй способ у синапсов: ///////////////////////////////////////////////////////////////////////////////////////////////////////////    
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    std::ifstream is2("/home/viktor/my_projects_qt_2/build-zapolnenie_sinapsov_sluchajnymi_nachalnymi_soprotivleniyami_2-Desktop_Qt_5_12_12_GCC_64bit-Debug/sinapsi-new.txt");
+    std::ifstream is2("/home/viktor/my_projects_qt_2/build-zapolnenie_sinapsov_sluchajnymi_nachalnymi_soprotivleniyami_2-Desktop_Qt_5_12_12_GCC_64bit-Debug/sinapsi-new-2.txt");
     std::istream_iterator<unsigned long long> start2(is2), end2;
     std::vector<unsigned long long> list_sinapsov(start2, end2);
     std::cout << "Read " << list_sinapsov.size() << " numbers" << std::endl;
@@ -155,6 +157,9 @@ Dialog::Dialog(QWidget *parent)
     //  exit(1);
 //}
    cout << "Ошибка = "<< Peremennaya_Oshibka << endl;
+        
+      //  goto a; // обходим функцию решения
+    b:
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -228,24 +233,96 @@ Dialog::Dialog(QWidget *parent)
    // long long oshibka
    Peremennaya_Oshibka
        =   1073741824-list_neyronov[201] ; /// получается если oshibka
-   std::cout << "Peremennaya_Oshibka = " << Peremennaya_Oshibka<< std::endl;
+ //  std::cout << "Peremennaya_Oshibka = " << Peremennaya_Oshibka<< std::endl;
+   if (Peremennaya_Oshibka<=0)// на выход
+       goto c;
+   a:
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
 /////////////////// Конец функции решения. /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Функция уменьшения ошибки путём уменьшения сопротивлений синапсов.
 // Алгоритм:
 // 1. Уменьшаем первый синапс (с индексом 0) на 1
-// Сделаем новую ветку git перед этим. Имя новой ветк"funktsiya_umensheniya_osibki"
+// Сделаем новую ветку git перед этим. Имя новой ветки "funktsiya_umensheniya_osibki"
    
 //   list_neyronov.clear ();
 //   list_sinapsov.clear ();
+  //  std::cout << " list_sinapsov[0] = " << list_sinapsov[0]<< std::endl;
+// Проверим что не уменьшим синапс меньше 0. Причём 0 не должен быть равен строго.
+    if (list_sinapsov[10101]==1) // на выход
+    {
+      std::cout << "Значения всех синапсов минимальны и равны 1. " << std::endl;
+        goto d;
+    }
+    e:
+    if (list_sinapsov[peremennaya_schiotchik_indeksa_sinapsov] >1)
+        // тут где-то проверка что последний синапс равен 1
+   list_sinapsov[peremennaya_schiotchik_indeksa_sinapsov]  =  list_sinapsov[peremennaya_schiotchik_indeksa_sinapsov]-1;
+    // TODO: ЕСЛИ значение синапса равно 1 увеличиваем peremennaya_schiotchik_indeksa_sinapsov на 1
+    if (list_sinapsov[peremennaya_schiotchik_indeksa_sinapsov] ==1)
+    {
+        peremennaya_schiotchik_indeksa_sinapsov = peremennaya_schiotchik_indeksa_sinapsov+1;
+        goto e;
+    }
+ //   std::cout << " list_sinapsov[0] = " << list_sinapsov[0]<< std::endl;
+   // Если не дошли до последнего индекса синапса. Если дошли то обнуляем его (индекс).
+    if (peremennaya_schiotchik_indeksa_sinapsov<10101)
+   peremennaya_schiotchik_indeksa_sinapsov=peremennaya_schiotchik_indeksa_sinapsov+1;
+    else
+        peremennaya_schiotchik_indeksa_sinapsov=0;
+    // // Где-то надо сделать проверку чтоб не зайти за значение синапса меньше 0.
+// 2. Проверим ошибку
+    // Переменная "счётчик индекса синапсов"?
+    goto b; // Переходим к функции решения.
     
     
     
-    
-    
-    
-    
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    c:
+         std::cout << "Ошибка исчезла. Peremennaya_Oshibka = " << Peremennaya_Oshibka<< std::endl;
+                
+                // TODO: тут надо записать вектор синапсов в файл
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          d:
+//////////////////////////// запись в файл 1 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////         
+//         ofstream file("/home/viktor/my_projects_qt_2/build-zapolnenie_sinapsov_sluchajnymi_nachalnymi_soprotivleniyami_2-Desktop_Qt_5_12_12_GCC_64bit-Debug/sinapsi-new-2.txt");
+//      //   vector<unsigned long long> Str {1,2,3,4};
+//         //   ....
+//         for(int i=0;i<list_sinapsov.size();i++)
+//         {
+//             file<<list_sinapsov[i]<<"\n";
+//             ui->textEdit->append (QString::number(list_sinapsov[i]));
+//         }
+//         file.close();
+///////////////////////// 2 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//              fstream file;
+//              file.open("/home/viktor/my_projects_qt_2/build-zapolnenie_sinapsov_sluchajnymi_nachalnymi_soprotivleniyami_2-Desktop_Qt_5_12_12_GCC_64bit-Debug/sinapsi-new-2.txt",ios_base::out);
+              
+//              for(int i=0;i<list_sinapsov.size();i++)
+//              {
+//                  file<<list_sinapsov[i]<<endl;
+//              }
+              
+//              file.close();
+/////////////////////////////// 3 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+fstream file;
+file.open("/home/viktor/my_projects_qt_2/build-zapolnenie_sinapsov_sluchajnymi_nachalnymi_soprotivleniyami_2-Desktop_Qt_5_12_12_GCC_64bit-Debug/sinapsi-new-3.txt",ios_base::out);
+
+vector<unsigned long long>::iterator itr;
+
+for(itr=list_sinapsov.begin();itr!=list_sinapsov.end();itr++)
+{
+    file<<*itr<<endl;
+}
+
+file.close();
+////////////////////////// конец записи в файл ///////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+///  запишем вектор в textedit
+//         for (int var = 0; var < list_sinapsov.size(); ++var) {
+//             ui->textEdit->append ();
+//         }
+ 
+               // ;;
 }
 
 Dialog::~Dialog()
