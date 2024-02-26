@@ -147,8 +147,8 @@ Dialog::Dialog(QWidget *parent)
     std::cout << "Read " << list_sinapsov.size() << " numbers" << std::endl;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
 //try {
-     cout << "Ошибка = "<< Peremennaya_Oshibka << endl; // 0
-    Funktciia_resheniya();
+//     cout << "Ошибка = "<< Peremennaya_Oshibka << endl; // 0
+//    Funktciia_resheniya();
 //}
 //catch (const std::exception &ex) {
 //    std::cerr << "Exception: '" << ex.what() << "'!" << std::endl;
@@ -206,7 +206,7 @@ Dialog::Dialog(QWidget *parent)
            
        }
        
-   }
+   } // конец  for ( var = 101; var < 201; ++var) // это диапазон нейронов
    // нейроны второго ряда посчитаны
    // тут надо досчитать последний 201 нейрон.
    for (int
@@ -224,14 +224,20 @@ Dialog::Dialog(QWidget *parent)
        //std::cout << "list_neyronov[201] = " << list_neyronov[201] << std::endl; 
        
    }
-   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    // long long oshibka
    Peremennaya_Oshibka
        =   1073741824-list_neyronov[201] ; /// получается если oshibka
-     std::cout << "Peremennaya_Oshibka = " << Peremennaya_Oshibka<< std::endl;
+   std::cout << "Peremennaya_Oshibka = " << Peremennaya_Oshibka<< std::endl;
+/////////////////// Конец функции решения. /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Функция уменьшения ошибки путём уменьшения сопротивлений синапсов.
+// Алгоритм:
+// 1. Уменьшаем первый синапс (с индексом 0) на 1
+// Сделаем новую ветку git перед этим. Имя новой ветк"funktsiya_umensheniya_osibki"
    
-   list_neyronov.clear ();
-   list_sinapsov.clear ();
+//   list_neyronov.clear ();
+//   list_sinapsov.clear ();
     
     
     
